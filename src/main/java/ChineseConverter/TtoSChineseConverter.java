@@ -7,7 +7,11 @@ import java.io.IOException;
 
 import com.github.houbb.opencc4j.util.ZhConverterUtil;
 
-public class ChineseConverter {
+/**
+ * Traditional chinese transform to simple chinese
+ * by opencc4j
+ */
+public class TtoSChineseConverter {
     public static void convertFile(String absFilePath) {
         StringBuilder oldContentBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
