@@ -56,6 +56,6 @@ public class ChineseConverter {
     }
 
     public static void convertFolder(String folderPath, TransferType type) {
-        FolderFileGetter.getFilePathList(folderPath).stream().forEach(filePath -> convertFile(filePath, type));
+        FolderFileGetter.getFilePathList(folderPath).forEach(filePath -> convertFile(filePath, type));
     }
 }
