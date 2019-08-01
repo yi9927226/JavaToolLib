@@ -9,22 +9,23 @@ import com.github.houbb.opencc4j.util.ZhConverterUtil;
 
 public class ChineseConverter {
     public static void convertFile(String absFilePath) {
-        StringBuilder oldContent = new StringBuilder();
+        StringBuilder oldContentBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
         FileWriter fileWriter = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(absFilePath));
             String line = bufferedReader.readLine();
             do {
-                oldContent.append(line).append(System.lineSeparator());
+                oldContentBuilder.append(line).append(System.lineSeparator());
                 line = bufferedReader.readLine();
             } while (line != null);
+            if (!("null" + System.lineSeparator()).equals(oldContentBuilder.toString())) {
+                String newContent = ZhConverterUtil.convertToSimple(oldContentBuilder.toString());
 
-            String newContent = ZhConverterUtil.convertToSimple(oldContent.toString());
+                fileWriter = new FileWriter(absFilePath);
 
-            fileWriter = new FileWriter(absFilePath);
-
-            fileWriter.write(newContent);
+                fileWriter.write(newContent);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,5 +39,9 @@ public class ChineseConverter {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void convertFolder(String folderPath) {
+        FolderFileGetter.getFilePathList(folderPath).stream().forEach(filePath -> convertFile(filePath));
     }
 }
